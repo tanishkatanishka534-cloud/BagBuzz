@@ -1,325 +1,194 @@
-/* ===== BagBuzz — Main Script ===== */
-(() => {
-    'use strict';
+// ── Product Data ──
+const products = [
+  { id:1, name:"Scarlet Stiletto", brand:"SlayStep", price:189, original:249, category:"stilettos", badge:"new", rating:4.8, reviews:124, image:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=800&fit=crop" },
+  { id:2, name:"Midnight Mule", brand:"SlayStep", price:139, original:null, category:"mules", badge:null, rating:4.6, reviews:89, image:"https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=600&h=800&fit=crop" },
+  { id:3, name:"Golden Hour Pump", brand:"Luxe Line", price:219, original:299, category:"pumps", badge:"sale", rating:4.9, reviews:203, image:"https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600&h=800&fit=crop" },
+  { id:4, name:"Noir Ankle Strap", brand:"SlayStep", price:169, original:null, category:"stilettos", badge:null, rating:4.7, reviews:156, image:"https://images.unsplash.com/photo-1518049362265-d5ef880be2a5?w=600&h=800&fit=crop" },
+  { id:5, name:"Champagne Dream", brand:"Luxe Line", price:259, original:null, category:"pumps", badge:"hot", rating:5.0, reviews:312, image:"https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=600&h=800&fit=crop" },
+  { id:6, name:"Rose Velvet Slide", brand:"SlayStep", price:149, original:199, category:"mules", badge:"sale", rating:4.5, reviews:67, image:"https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&h=800&fit=crop" },
+  { id:7, name:"Crystal Strappy", brand:"Luxe Line", price:289, original:null, category:"stilettos", badge:"new", rating:4.9, reviews:178, image:"https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=800&fit=crop" },
+  { id:8, name:"Blush Platform", brand:"SlayStep", price:179, original:239, category:"platforms", badge:"sale", rating:4.6, reviews:95, image:"https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=800&fit=crop" },
+];
 
-    // ── DOM References ──
-    const $ = (sel, ctx = document) => ctx.querySelector(sel);
-    const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+let cart = [];
+let currentSlide = 0;
 
-    const navbar = $('#navbar');
-    const hamburger = $('#hamburger');
-    const navLinks = $('#navLinks');
-    const searchToggle = $('#searchToggle');
-    const searchOverlay = $('#searchOverlay');
-    const searchClose = $('#searchClose');
-    const searchInput = $('#searchInput');
-    const cartBtn = $('#cartBtn');
-    const cartOverlay = $('#cartOverlay');
-    const cartDrawer = $('#cartDrawer');
-    const cartClose = $('#cartClose');
-    const cartItems = $('#cartItems');
-    const cartEmpty = $('#cartEmpty');
-    const cartFooter = $('#cartFooter');
-    const cartCount = $('#cartCount');
-    const cartTotal = $('#cartTotal');
-    const productGrid = $('#productGrid');
-    const backToTop = $('#backToTop');
-    const toastContainer = $('#toastContainer');
-    const newsletterForm = $('#newsletterForm');
+document.addEventListener("DOMContentLoaded", () => {
+  renderProducts("all");
+  initNavbar();
+  initFilters();
+  initTestimonials();
+  initRevealAnimations();
+  initBackToTop();
+  initCart();
+  initMobileMenu();
+  initNewsletter();
+});
 
-    // ── State ──
-    let cart = JSON.parse(localStorage.getItem('bagbuzz_cart') || '[]');
-
-    // ── Navbar Scroll ──
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const y = window.scrollY;
-        navbar.classList.toggle('scrolled', y > 60);
-        backToTop.classList.toggle('visible', y > 400);
-        lastScroll = y;
-    });
-
-    // ── Mobile Menu ──
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-    $$('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
-        });
-    });
-
-    // ── Active Nav on Scroll ──
-    const sections = $$('section[id]');
-    window.addEventListener('scroll', () => {
-        const y = window.scrollY + 200;
-        sections.forEach(sec => {
-            const top = sec.offsetTop;
-            const h = sec.offsetHeight;
-            const id = sec.getAttribute('id');
-            const link = $(`.nav-link[href="#${id}"]`);
-            if (link) link.classList.toggle('active', y >= top && y < top + h);
-        });
-    });
-
-    // ── Search ──
-    searchToggle.addEventListener('click', () => {
-        searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) searchInput.focus();
-    });
-    searchClose.addEventListener('click', () => searchOverlay.classList.remove('active'));
-
-    // ── Cart Drawer ──
-    function openCart() {
-        cartDrawer.classList.add('active');
-        cartOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+function renderProducts(filter) {
+  const grid = document.getElementById("productsGrid");
+  const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
+  grid.innerHTML = "";
+  filtered.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "product-card reveal";
+    card.style.transitionDelay = `${i * 0.08}s`;
+    let badgeHTML = "";
+    if (p.badge) {
+      const cls = p.badge === "new" ? "badge-new" : p.badge === "sale" ? "badge-sale" : "badge-hot";
+      badgeHTML = `<span class="product-badge ${cls}">${p.badge}</span>`;
     }
-    function closeCart() {
-        cartDrawer.classList.remove('active');
-        cartOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    cartBtn.addEventListener('click', openCart);
-    cartClose.addEventListener('click', closeCart);
-    cartOverlay.addEventListener('click', closeCart);
-
-    // ── Cart Logic ──
-    function saveCart() {
-        localStorage.setItem('bagbuzz_cart', JSON.stringify(cart));
-    }
-
-    function updateCartUI() {
-        // Count
-        const total = cart.reduce((s, i) => s + i.qty, 0);
-        cartCount.textContent = total;
-        cartCount.classList.add('bump');
-        setTimeout(() => cartCount.classList.remove('bump'), 400);
-
-        // Items
-        if (cart.length === 0) {
-            cartEmpty.style.display = 'flex';
-            cartFooter.style.display = 'none';
-            // clear item nodes except #cartEmpty
-            $$('.cart-item', cartItems).forEach(el => el.remove());
-            return;
-        }
-
-        cartEmpty.style.display = 'none';
-        cartFooter.style.display = 'block';
-
-        // Rebuild items
-        $$('.cart-item', cartItems).forEach(el => el.remove());
-
-        cart.forEach(item => {
-            const el = document.createElement('div');
-            el.className = 'cart-item';
-            el.innerHTML = `
-        <div class="cart-item-img"><img src="${item.img}" alt="${item.name}" /></div>
-        <div class="cart-item-details">
-          <span class="cart-item-name">${item.name}</span>
-          <span class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</span>
-          <div class="cart-item-qty">
-            <button class="qty-btn" data-action="dec" data-id="${item.id}">−</button>
-            <span>${item.qty}</span>
-            <button class="qty-btn" data-action="inc" data-id="${item.id}">+</button>
-          </div>
+    const stars = "★".repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? "½" : "");
+    card.innerHTML = `
+      ${badgeHTML}
+      <div class="product-image">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <div class="product-actions">
+          <button onclick="addToWishlist(${p.id})" title="Wishlist">♡</button>
+          <button onclick="addToCart(${p.id})" title="Add to Cart">🛒</button>
         </div>
-        <button class="cart-item-remove" data-id="${item.id}">✕</button>
-      `;
-            cartItems.appendChild(el);
-        });
+      </div>
+      <div class="product-info">
+        <div class="product-brand">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">
+          <span class="current">$${p.price}</span>
+          ${p.original ? `<span class="original">$${p.original}</span>` : ""}
+        </div>
+        <div class="product-rating">
+          <span class="stars">${stars}</span>
+          <span class="count">(${p.reviews})</span>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  setTimeout(() => {
+    document.querySelectorAll(".products-grid .reveal").forEach(el => el.classList.add("active"));
+  }, 100);
+}
 
-        // Total
-        const sum = cart.reduce((s, i) => s + i.price * i.qty, 0);
-        cartTotal.textContent = `$${sum.toFixed(2)}`;
-    }
+function initNavbar() {
+  window.addEventListener("scroll", () => {
+    document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 60);
+  });
+}
 
-    // Delegated events on cart items
-    cartItems.addEventListener('click', e => {
-        const btn = e.target.closest('[data-id]');
-        if (!btn) return;
-        const id = btn.dataset.id;
-        const action = btn.dataset.action;
-
-        if (action === 'inc') {
-            const item = cart.find(i => i.id === id);
-            if (item) item.qty++;
-        } else if (action === 'dec') {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty--;
-                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
-            }
-        } else if (btn.classList.contains('cart-item-remove')) {
-            cart = cart.filter(i => i.id !== id);
-        }
-        saveCart();
-        updateCartUI();
+function initFilters() {
+  document.querySelectorAll(".filter-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      renderProducts(tab.dataset.filter);
     });
+  });
+}
 
-    // Add to cart from product cards
-    productGrid.addEventListener('click', e => {
-        const btn = e.target.closest('.btn-add-cart');
-        if (!btn) return;
+function initTestimonials() {
+  document.querySelectorAll(".slider-dots button").forEach((dot, i) => {
+    dot.addEventListener("click", () => goToSlide(i));
+  });
+  setInterval(() => goToSlide((currentSlide + 1) % 3), 5000);
+}
 
-        const { id, name, price, img } = btn.dataset;
-        const existing = cart.find(i => i.id === id);
-        if (existing) {
-            existing.qty++;
-        } else {
-            cart.push({ id, name, price: parseFloat(price), img, qty: 1 });
-        }
-        saveCart();
-        updateCartUI();
-        showToast(`${name} added to cart!`);
-    });
+function goToSlide(index) {
+  currentSlide = index;
+  document.querySelector(".testimonial-track").style.transform = `translateX(-${index * 100}%)`;
+  document.querySelectorAll(".slider-dots button").forEach((d, i) => d.classList.toggle("active", i === index));
+}
 
-    // Wishlist toggle
-    productGrid.addEventListener('click', e => {
-        const btn = e.target.closest('.product-wishlist');
-        if (!btn) return;
-        btn.classList.toggle('active');
-        const isActive = btn.classList.contains('active');
-        showToast(isActive ? 'Added to wishlist ♥' : 'Removed from wishlist');
-    });
+function initRevealAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+}
 
-    // ── Product Filters ──
-    const filterBtns = $$('.filter-btn');
-    const productCards = $$('.product-card');
+function initBackToTop() {
+  const btn = document.querySelector(".back-to-top");
+  window.addEventListener("scroll", () => btn.classList.toggle("visible", window.scrollY > 500));
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+function initCart() {
+  document.getElementById("cartBtn").addEventListener("click", toggleCart);
+  document.getElementById("cartClose").addEventListener("click", toggleCart);
+  document.getElementById("cartOverlay").addEventListener("click", toggleCart);
+}
 
-            const filter = btn.dataset.filter;
-            productCards.forEach(card => {
-                if (filter === 'all' || card.dataset.category === filter) {
-                    card.classList.remove('hidden');
-                    card.style.animation = 'none';
-                    card.offsetHeight; // reflow
-                    card.style.animation = 'fadeUp .5s ease forwards';
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        });
-    });
+function toggleCart() {
+  document.getElementById("cartOverlay").classList.toggle("open");
+  document.getElementById("cartSidebar").classList.toggle("open");
+  document.body.style.overflow = document.getElementById("cartSidebar").classList.contains("open") ? "hidden" : "";
+}
 
-    // ── Toast Notifications ──
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<span class="toast-icon">✓</span><span class="toast-msg">${message}</span>`;
-        toastContainer.appendChild(toast);
-        setTimeout(() => toast.remove(), 3200);
-    }
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ ...product, qty: 1 });
+  updateCartUI();
+  showToast(`${product.name} added to bag ✓`);
+  toggleCart();
+}
 
-    // ── Newsletter ──
-    newsletterForm.addEventListener('submit', e => {
-        e.preventDefault();
-        const email = $('#emailInput').value.trim();
-        if (email) {
-            showToast('Welcome to BagBuzz! 🎉');
-            newsletterForm.reset();
-        }
-    });
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCartUI();
+}
 
-    // ── Back to Top ──
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+function updateCartUI() {
+  const countEl = document.getElementById("cartCount");
+  const itemsEl = document.getElementById("cartItems");
+  const totalEl = document.getElementById("cartTotal");
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  countEl.textContent = count;
+  countEl.style.display = count > 0 ? "flex" : "none";
+  if (cart.length === 0) {
+    itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-icon">👠</div><p>Your bag is empty</p></div>`;
+  } else {
+    itemsEl.innerHTML = cart.map(c => `
+      <div class="cart-item">
+        <img src="${c.image}" alt="${c.name}">
+        <div class="cart-item-info">
+          <h4>${c.name}</h4>
+          <p>Qty: ${c.qty}</p>
+          <div class="cart-item-price">$${c.price * c.qty}</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${c.id})">✕</button>
+      </div>`).join("");
+  }
+  totalEl.textContent = `$${total}`;
+}
 
-    // ── Scroll Reveal (IntersectionObserver) ──
-    const revealElements = $$('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+function addToWishlist(id) {
+  showToast(`${products.find(p => p.id === id).name} added to wishlist ♡`);
+}
 
-    revealElements.forEach(el => revealObserver.observe(el));
+function showToast(msg) {
+  let toast = document.getElementById("toastEl");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toastEl";
+    toast.className = "toast";
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2800);
+}
 
-    // ── Counter Animation ──
-    const statNumbers = $$('.stat-number[data-target]');
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                const target = parseInt(el.dataset.target);
-                animateCounter(el, target);
-                counterObserver.unobserve(el);
-            }
-        });
-    }, { threshold: 0.5 });
+function initMobileMenu() {
+  const hamburger = document.getElementById("hamburger");
+  const navLinks = document.getElementById("navLinks");
+  hamburger.addEventListener("click", () => navLinks.classList.toggle("mobile-open"));
+  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("mobile-open")));
+}
 
-    statNumbers.forEach(el => counterObserver.observe(el));
-
-    function animateCounter(el, target) {
-        const duration = 1800;
-        const start = performance.now();
-        function tick(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const ease = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.floor(ease * target);
-            if (progress < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-    }
-
-    // ── Hero Particles ──
-    function createParticles() {
-        const container = $('#heroParticles');
-        if (!container) return;
-        for (let i = 0; i < 30; i++) {
-            const p = document.createElement('div');
-            p.style.cssText = `
-        position:absolute;
-        width:${Math.random() * 4 + 1}px;
-        height:${Math.random() * 4 + 1}px;
-        background:rgba(200,149,108,${Math.random() * 0.3 + 0.05});
-        border-radius:50%;
-        top:${Math.random() * 100}%;
-        left:${Math.random() * 100}%;
-        animation:float ${Math.random() * 8 + 6}s ease-in-out infinite;
-        animation-delay:${Math.random() * 5}s;
-      `;
-            container.appendChild(p);
-        }
-    }
-
-    // Insert floating keyframe
-    const style = document.createElement('style');
-    style.textContent = `
-    @keyframes float {
-      0%,100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-      25% { transform: translate(${20}px, -${30}px) scale(1.2); opacity: 0.6; }
-      50% { transform: translate(-${15}px, -${50}px) scale(0.8); opacity: 0.4; }
-      75% { transform: translate(${25}px, -${20}px) scale(1.1); opacity: 0.5; }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `;
-    document.head.appendChild(style);
-
-    // ── Checkout Button ──
-    document.addEventListener('click', e => {
-        if (e.target.closest('.btn-checkout')) {
-            showToast('Checkout coming soon! 🛒');
-        }
-    });
-
-    // ── Init ──
-    createParticles();
-    updateCartUI();
-
-})();
+function initNewsletter() {
+  document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    showToast("Thank you for subscribing! 💌");
+    e.target.reset();
+  });
+}
