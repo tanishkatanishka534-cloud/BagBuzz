@@ -1,194 +1,247 @@
-// ── Product Data ──
+// ─── PRODUCT DATA ───
 const products = [
-  { id:1, name:"Scarlet Stiletto", brand:"SlayStep", price:189, original:249, category:"stilettos", badge:"new", rating:4.8, reviews:124, image:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=800&fit=crop" },
-  { id:2, name:"Midnight Mule", brand:"SlayStep", price:139, original:null, category:"mules", badge:null, rating:4.6, reviews:89, image:"https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=600&h=800&fit=crop" },
-  { id:3, name:"Golden Hour Pump", brand:"Luxe Line", price:219, original:299, category:"pumps", badge:"sale", rating:4.9, reviews:203, image:"https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600&h=800&fit=crop" },
-  { id:4, name:"Noir Ankle Strap", brand:"SlayStep", price:169, original:null, category:"stilettos", badge:null, rating:4.7, reviews:156, image:"https://images.unsplash.com/photo-1518049362265-d5ef880be2a5?w=600&h=800&fit=crop" },
-  { id:5, name:"Champagne Dream", brand:"Luxe Line", price:259, original:null, category:"pumps", badge:"hot", rating:5.0, reviews:312, image:"https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=600&h=800&fit=crop" },
-  { id:6, name:"Rose Velvet Slide", brand:"SlayStep", price:149, original:199, category:"mules", badge:"sale", rating:4.5, reviews:67, image:"https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&h=800&fit=crop" },
-  { id:7, name:"Crystal Strappy", brand:"Luxe Line", price:289, original:null, category:"stilettos", badge:"new", rating:4.9, reviews:178, image:"https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=800&fit=crop" },
-  { id:8, name:"Blush Platform", brand:"SlayStep", price:179, original:239, category:"platforms", badge:"sale", rating:4.6, reviews:95, image:"https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=800&fit=crop" },
+  { id: 1, name: "Sienna Classic Tote", brand: "BagBuzz Original", price: 189, oldPrice: 249, image: "images/bag-tote.png", category: "tote", badge: "new", rating: 5 },
+  { id: 2, name: "Noir Chain Crossbody", brand: "BagBuzz Luxe", price: 145, oldPrice: null, image: "images/bag-crossbody.png", category: "crossbody", badge: "hot", rating: 5 },
+  { id: 3, name: "Urban Explorer Backpack", brand: "BagBuzz Active", price: 165, oldPrice: 210, image: "images/bag-backpack.png", category: "backpack", badge: "sale", rating: 4 },
+  { id: 4, name: "Aurora Evening Clutch", brand: "BagBuzz Luxe", price: 120, oldPrice: null, image: "images/bag-clutch.png", category: "clutch", badge: "new", rating: 5 },
+  { id: 5, name: "Voyager Weekender Duffle", brand: "BagBuzz Travel", price: 275, oldPrice: 340, image: "images/bag-duffle.png", category: "duffle", badge: "sale", rating: 5 },
+  { id: 6, name: "Heritage Buckle Satchel", brand: "BagBuzz Classic", price: 198, oldPrice: null, image: "images/bag-satchel.png", category: "satchel", badge: "hot", rating: 4 },
+  { id: 7, name: "Cognac Leather Tote", brand: "BagBuzz Original", price: 215, oldPrice: 280, image: "images/bag-tote.png", category: "tote", badge: "sale", rating: 5 },
+  { id: 8, name: "Midnight Crossbody Sling", brand: "BagBuzz Luxe", price: 135, oldPrice: null, image: "images/bag-crossbody.png", category: "crossbody", badge: null, rating: 4 },
+  { id: 9, name: "Summit Trail Backpack", brand: "BagBuzz Active", price: 155, oldPrice: null, image: "images/bag-backpack.png", category: "backpack", badge: "new", rating: 5 },
+  { id: 10, name: "Crystal Gala Clutch", brand: "BagBuzz Luxe", price: 98, oldPrice: 130, image: "images/bag-clutch.png", category: "clutch", badge: "sale", rating: 4 },
+  { id: 11, name: "Sahara Travel Duffle", brand: "BagBuzz Travel", price: 295, oldPrice: null, image: "images/bag-duffle.png", category: "duffle", badge: "hot", rating: 5 },
+  { id: 12, name: "Windsor Leather Satchel", brand: "BagBuzz Classic", price: 225, oldPrice: 290, image: "images/bag-satchel.png", category: "satchel", badge: "new", rating: 5 },
 ];
 
-let cart = [];
-let currentSlide = 0;
+// ─── CART STATE ───
+let cart = JSON.parse(localStorage.getItem("bagbuzz-cart")) || [];
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderProducts("all");
-  initNavbar();
-  initFilters();
-  initTestimonials();
-  initRevealAnimations();
-  initBackToTop();
-  initCart();
-  initMobileMenu();
-  initNewsletter();
-});
+// ─── DOM ELEMENTS ───
+const productsGrid = document.getElementById("productsGrid");
+const cartBtn = document.getElementById("cartBtn");
+const cartSidebar = document.getElementById("cartSidebar");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartClose = document.getElementById("cartClose");
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartItemCount = document.getElementById("cartItemCount");
+const cartTotal = document.getElementById("cartTotal");
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+const backToTop = document.getElementById("backToTop");
+const navbar = document.getElementById("navbar");
 
-function renderProducts(filter) {
-  const grid = document.getElementById("productsGrid");
+// ─── RENDER PRODUCTS ───
+function renderProducts(filter = "all") {
   const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
-  grid.innerHTML = "";
-  filtered.forEach((p, i) => {
-    const card = document.createElement("div");
-    card.className = "product-card reveal";
-    card.style.transitionDelay = `${i * 0.08}s`;
-    let badgeHTML = "";
-    if (p.badge) {
-      const cls = p.badge === "new" ? "badge-new" : p.badge === "sale" ? "badge-sale" : "badge-hot";
-      badgeHTML = `<span class="product-badge ${cls}">${p.badge}</span>`;
-    }
-    const stars = "★".repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? "½" : "");
-    card.innerHTML = `
-      ${badgeHTML}
-      <div class="product-image">
+  productsGrid.innerHTML = filtered.map(p => `
+    <div class="product-card" data-category="${p.category}">
+      <div class="product-img">
         <img src="${p.image}" alt="${p.name}" loading="lazy">
+        ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : ""}
         <div class="product-actions">
-          <button onclick="addToWishlist(${p.id})" title="Wishlist">♡</button>
-          <button onclick="addToCart(${p.id})" title="Add to Cart">🛒</button>
+          <button onclick="addToCart(${p.id})" title="Add to Bag"><i class="fas fa-shopping-bag"></i></button>
+          <button onclick="toggleWishlist(this)" title="Wishlist"><i class="far fa-heart"></i></button>
+          <button title="Quick View"><i class="fas fa-eye"></i></button>
         </div>
       </div>
       <div class="product-info">
-        <div class="product-brand">${p.brand}</div>
-        <div class="product-name">${p.name}</div>
-        <div class="product-price">
-          <span class="current">$${p.price}</span>
-          ${p.original ? `<span class="original">$${p.original}</span>` : ""}
+        <div class="brand">${p.brand}</div>
+        <h3>${p.name}</h3>
+        <div class="price">
+          $${p.price}
+          ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ""}
         </div>
-        <div class="product-rating">
-          <span class="stars">${stars}</span>
-          <span class="count">(${p.reviews})</span>
-        </div>
-      </div>`;
-    grid.appendChild(card);
+        <div class="rating">${"★".repeat(p.rating)}${"☆".repeat(5 - p.rating)}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ─── FILTER BUTTONS ───
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderProducts(btn.dataset.filter);
   });
-  setTimeout(() => {
-    document.querySelectorAll(".products-grid .reveal").forEach(el => el.classList.add("active"));
-  }, 100);
-}
+});
 
-function initNavbar() {
-  window.addEventListener("scroll", () => {
-    document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 60);
+// ─── CATEGORY CARDS CLICK ───
+document.querySelectorAll(".category-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const cat = card.dataset.category;
+    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      document.querySelectorAll(".filter-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.filter === cat);
+      });
+      renderProducts(cat);
+    }, 500);
   });
-}
+});
 
-function initFilters() {
-  document.querySelectorAll(".filter-tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-      document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      renderProducts(tab.dataset.filter);
-    });
-  });
-}
-
-function initTestimonials() {
-  document.querySelectorAll(".slider-dots button").forEach((dot, i) => {
-    dot.addEventListener("click", () => goToSlide(i));
-  });
-  setInterval(() => goToSlide((currentSlide + 1) % 3), 5000);
-}
-
-function goToSlide(index) {
-  currentSlide = index;
-  document.querySelector(".testimonial-track").style.transform = `translateX(-${index * 100}%)`;
-  document.querySelectorAll(".slider-dots button").forEach((d, i) => d.classList.toggle("active", i === index));
-}
-
-function initRevealAnimations() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-}
-
-function initBackToTop() {
-  const btn = document.querySelector(".back-to-top");
-  window.addEventListener("scroll", () => btn.classList.toggle("visible", window.scrollY > 500));
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-}
-
-function initCart() {
-  document.getElementById("cartBtn").addEventListener("click", toggleCart);
-  document.getElementById("cartClose").addEventListener("click", toggleCart);
-  document.getElementById("cartOverlay").addEventListener("click", toggleCart);
-}
-
-function toggleCart() {
-  document.getElementById("cartOverlay").classList.toggle("open");
-  document.getElementById("cartSidebar").classList.toggle("open");
-  document.body.style.overflow = document.getElementById("cartSidebar").classList.contains("open") ? "hidden" : "";
-}
-
+// ─── CART FUNCTIONS ───
 function addToCart(id) {
   const product = products.find(p => p.id === id);
-  const existing = cart.find(c => c.id === id);
-  if (existing) existing.qty++;
-  else cart.push({ ...product, qty: 1 });
-  updateCartUI();
-  showToast(`${product.name} added to bag ✓`);
-  toggleCart();
+  const existing = cart.find(item => item.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+  saveCart();
+  renderCart();
+  openCart();
 }
 
 function removeFromCart(id) {
-  cart = cart.filter(c => c.id !== id);
-  updateCartUI();
+  cart = cart.filter(item => item.id !== id);
+  saveCart();
+  renderCart();
 }
 
-function updateCartUI() {
-  const countEl = document.getElementById("cartCount");
-  const itemsEl = document.getElementById("cartItems");
-  const totalEl = document.getElementById("cartTotal");
-  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-  const count = cart.reduce((s, c) => s + c.qty, 0);
-  countEl.textContent = count;
-  countEl.style.display = count > 0 ? "flex" : "none";
+function updateQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (item) {
+    item.qty += delta;
+    if (item.qty <= 0) { removeFromCart(id); return; }
+  }
+  saveCart();
+  renderCart();
+}
+
+function saveCart() {
+  localStorage.setItem("bagbuzz-cart", JSON.stringify(cart));
+}
+
+function renderCart() {
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCount.textContent = count;
+  cartItemCount.textContent = `(${count})`;
+  cartTotal.textContent = `$${total.toFixed(2)}`;
+
   if (cart.length === 0) {
-    itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-icon">👠</div><p>Your bag is empty</p></div>`;
-  } else {
-    itemsEl.innerHTML = cart.map(c => `
-      <div class="cart-item">
-        <img src="${c.image}" alt="${c.name}">
-        <div class="cart-item-info">
-          <h4>${c.name}</h4>
-          <p>Qty: ${c.qty}</p>
-          <div class="cart-item-price">$${c.price * c.qty}</div>
+    cartItems.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div>`;
+    return;
+  }
+
+  cartItems.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img src="${item.image}" alt="${item.name}">
+      <div class="cart-item-info">
+        <h4>${item.name}</h4>
+        <div class="price">$${item.price}</div>
+        <div class="cart-item-qty">
+          <button onclick="updateQty(${item.id}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="updateQty(${item.id}, 1)">+</button>
         </div>
-        <button class="cart-item-remove" onclick="removeFromCart(${c.id})">✕</button>
-      </div>`).join("");
-  }
-  totalEl.textContent = `$${total}`;
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+  `).join("");
 }
 
-function addToWishlist(id) {
-  showToast(`${products.find(p => p.id === id).name} added to wishlist ♡`);
+function openCart() {
+  cartSidebar.classList.add("open");
+  cartOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
 }
 
-function showToast(msg) {
-  let toast = document.getElementById("toastEl");
-  if (!toast) {
-    toast = document.createElement("div");
-    toast.id = "toastEl";
-    toast.className = "toast";
-    document.body.appendChild(toast);
-  }
-  toast.textContent = msg;
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2800);
+function closeCart() {
+  cartSidebar.classList.remove("open");
+  cartOverlay.classList.remove("open");
+  document.body.style.overflow = "";
 }
 
-function initMobileMenu() {
-  const hamburger = document.getElementById("hamburger");
-  const navLinks = document.getElementById("navLinks");
-  hamburger.addEventListener("click", () => navLinks.classList.toggle("mobile-open"));
-  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("mobile-open")));
+cartBtn.addEventListener("click", openCart);
+cartClose.addEventListener("click", closeCart);
+cartOverlay.addEventListener("click", closeCart);
+
+// ─── WISHLIST TOGGLE ───
+function toggleWishlist(btn) {
+  const icon = btn.querySelector("i");
+  icon.classList.toggle("far");
+  icon.classList.toggle("fas");
+  icon.style.color = icon.classList.contains("fas") ? "#e74c3c" : "";
 }
 
-function initNewsletter() {
-  document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+// ─── HAMBURGER MENU ───
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("mobile-open");
+});
+
+// ─── SMOOTH SCROLL NAV ───
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
-    showToast("Thank you for subscribing! 💌");
-    e.target.reset();
+    navLinks.classList.remove("mobile-open");
+    document.querySelectorAll(".nav-links a").forEach(l => l.classList.remove("active"));
+    link.classList.add("active");
+    const target = document.querySelector(link.getAttribute("href"));
+    if (target) target.scrollIntoView({ behavior: "smooth" });
   });
+});
+
+// ─── NAVBAR SCROLL EFFECT ───
+window.addEventListener("scroll", () => {
+  navbar.classList.toggle("scrolled", window.scrollY > 50);
+  backToTop.classList.toggle("visible", window.scrollY > 500);
+});
+
+// ─── BACK TO TOP ───
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll(".reveal");
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ─── HERO PARTICLES ───
+const particlesContainer = document.getElementById("particles");
+for (let i = 0; i < 30; i++) {
+  const span = document.createElement("span");
+  span.style.left = Math.random() * 100 + "%";
+  span.style.top = Math.random() * 100 + "%";
+  span.style.animationDelay = Math.random() * 6 + "s";
+  span.style.animationDuration = (4 + Math.random() * 4) + "s";
+  particlesContainer.appendChild(span);
 }
+
+// ─── NEWSLETTER FORM ───
+document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const input = e.target.querySelector("input");
+  input.value = "";
+  alert("🎉 Welcome to the BagBuzz Club! Check your inbox for exclusive perks.");
+});
+
+// ─── ACTIVE NAV ON SCROLL ───
+const sections = document.querySelectorAll("section[id]");
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(section => {
+    const top = section.offsetTop - 120;
+    if (window.scrollY >= top) current = section.getAttribute("id");
+  });
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+  });
+});
+
+// ─── INIT ───
+renderProducts();
+renderCart();
