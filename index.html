@@ -1,724 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BagBuzz — Premium Designer Bags</title>
-    <meta name="description"
-        content="BagBuzz offers curated premium designer bags — totes, crossbodies, backpacks, clutches and more. Free shipping on orders over $100." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SlayStep — Luxury designer heels for every occasion. Shop stilettos, pumps, mules & platforms.">
+  <title>SlayStep — Walk in Confidence</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <span class="logo-icon">👜</span>
-                <span class="logo-text">Bag<span class="logo-accent">Buzz</span></span>
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#categories" class="nav-link">Categories</a></li>
-                <li><a href="#products" class="nav-link">Shop</a></li>
-                <li><a href="#features" class="nav-link">Why Us</a></li>
-                <li><a href="#newsletter" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="nav-btn search-toggle" id="searchToggle" aria-label="Search">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.3-4.3" />
-                    </svg>
-                </button>
-                <button class="nav-btn cart-btn" id="cartBtn" aria-label="Shopping cart">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="8" cy="21" r="1" />
-                        <circle cx="19" cy="21" r="1" />
-                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-                    </svg>
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
-                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
-        <!-- Search overlay -->
-        <div class="search-overlay" id="searchOverlay">
-            <div class="search-container">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search bags, brands, styles..." />
-                <button class="search-close" id="searchClose" aria-label="Close search">&times;</button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- ========== HERO ========== -->
-    <section class="hero" id="home">
-        <div class="hero-particles" id="heroParticles"></div>
-        <div class="hero-content reveal">
-            <span class="hero-tag">New Collection 2026</span>
-            <h1 class="hero-title">
-                Carry Your <span class="highlight">Style</span><br />Everywhere You Go
-            </h1>
-            <p class="hero-subtitle">Discover handcrafted luxury bags designed for the modern individual. Premium
-                materials, timeless elegance, unmatched quality.</p>
-            <div class="hero-cta">
-                <a href="#products" class="btn btn-primary">Shop Collection</a>
-                <a href="#categories" class="btn btn-outline">Explore Categories</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number" data-target="250">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Designs</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="50">0</span><span class="stat-suffix">K+</span>
-                    <span class="stat-label">Happy Customers</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="15">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Years Crafting</span>
-                </div>
-            </div>
-        </div>
-        <div class="hero-visual reveal">
-            <div class="hero-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80"
-                    alt="Premium designer leather bag" class="hero-img" />
-                <div class="hero-img-glow"></div>
-            </div>
-        </div>
-        <div class="hero-scroll-indicator">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- ========== MARQUEE ========== -->
-    <div class="marquee-section">
-        <div class="marquee-track">
-            <span>✦ Free Shipping Over $100</span>
-            <span>✦ Handcrafted Luxury</span>
-            <span>✦ 30-Day Returns</span>
-            <span>✦ Sustainable Materials</span>
-            <span>✦ Lifetime Warranty</span>
-            <span>✦ Free Shipping Over $100</span>
-            <span>✦ Handcrafted Luxury</span>
-            <span>✦ 30-Day Returns</span>
-            <span>✦ Sustainable Materials</span>
-            <span>✦ Lifetime Warranty</span>
-        </div>
+  <!-- ═══ NAVBAR ═══ -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">SLAYSTEP</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#featured">Featured</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+      </ul>
+      <div class="nav-icons">
+        <button title="Search">🔍</button>
+        <button title="Wishlist">♡</button>
+        <button id="cartBtn" title="Cart">🛒<span class="cart-count" id="cartCount" style="display:none">0</span></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
     </div>
+  </nav>
 
-    <!-- ========== CATEGORIES ========== -->
-    <section class="categories" id="categories">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Browse by Style</span>
-                <h2 class="section-title">Shop Categories</h2>
-                <p class="section-subtitle">Find the perfect bag for every occasion</p>
-            </div>
-            <div class="category-grid">
-                <div class="category-card reveal" data-category="tote">
-                    <div class="category-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80"
-                            alt="Tote Bags" />
-                    </div>
-                    <div class="category-info">
-                        <h3>Tote Bags</h3>
-                        <p>24 Products</p>
-                        <span class="category-arrow">→</span>
-                    </div>
-                </div>
-                <div class="category-card reveal" data-category="crossbody">
-                    <div class="category-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80"
-                            alt="Crossbody Bags" />
-                    </div>
-                    <div class="category-info">
-                        <h3>Crossbody</h3>
-                        <p>18 Products</p>
-                        <span class="category-arrow">→</span>
-                    </div>
-                </div>
-                <div class="category-card reveal" data-category="backpack">
-                    <div class="category-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80"
-                            alt="Backpacks" />
-                    </div>
-                    <div class="category-info">
-                        <h3>Backpacks</h3>
-                        <p>15 Products</p>
-                        <span class="category-arrow">→</span>
-                    </div>
-                </div>
-                <div class="category-card reveal" data-category="clutch">
-                    <div class="category-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&q=80"
-                            alt="Clutch Bags" />
-                    </div>
-                    <div class="category-info">
-                        <h3>Clutches</h3>
-                        <p>12 Products</p>
-                        <span class="category-arrow">→</span>
-                    </div>
-                </div>
-                <div class="category-card reveal" data-category="travel">
-                    <div class="category-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80"
-                            alt="Travel Bags" />
-                    </div>
-                    <div class="category-info">
-                        <h3>Travel</h3>
-                        <p>20 Products</p>
-                        <span class="category-arrow">→</span>
-                    </div>
-                </div>
-                <div class="category-card reveal" data-category="laptop">
-                    <div class="category-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80"
-                            alt="Laptop Bags" />
-                    </div>
-                    <div class="category-info">
-                        <h3>Laptop Bags</h3>
-                        <p>10 Products</p>
-                        <span class="category-arrow">→</span>
-                    </div>
-                </div>
-            </div>
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="hero-badge">✦ New Collection 2026</span>
+        <h1>Walk With<br><span>Confidence</span></h1>
+        <p>Discover handcrafted luxury heels designed to make every step a statement. Elevate your style with SlayStep's exclusive collection.</p>
+        <div class="btn-group">
+          <a href="#products" class="btn btn-primary">Shop Now →</a>
+          <a href="#categories" class="btn btn-outline">Explore</a>
         </div>
-    </section>
-
-    <!-- ========== PRODUCTS ========== -->
-    <section class="products" id="products">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Curated For You</span>
-                <h2 class="section-title">Featured Products</h2>
-                <p class="section-subtitle">Handpicked favorites from our latest collection</p>
-            </div>
-            <div class="product-filters reveal">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="tote">Totes</button>
-                <button class="filter-btn" data-filter="crossbody">Crossbody</button>
-                <button class="filter-btn" data-filter="backpack">Backpacks</button>
-                <button class="filter-btn" data-filter="clutch">Clutches</button>
-            </div>
-            <div class="product-grid" id="productGrid">
-                <!-- Product 1 -->
-                <div class="product-card reveal" data-category="tote" id="product-1">
-                    <div class="product-badge">New</div>
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80"
-                            alt="Sienna Leather Tote" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Tote</span>
-                        <h3 class="product-name">Sienna Leather Tote</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">(128)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$189.00</span>
-                            <span class="product-price-old">$249.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="1" data-name="Sienna Leather Tote" data-price="189.00"
-                            data-img="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 2 -->
-                <div class="product-card reveal" data-category="crossbody" id="product-2">
-                    <div class="product-badge sale">Sale</div>
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80"
-                            alt="Noir Crossbody Sling" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Crossbody</span>
-                        <h3 class="product-name">Noir Crossbody Sling</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="rating-count">(94)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$129.00</span>
-                            <span class="product-price-old">$179.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="2" data-name="Noir Crossbody Sling"
-                            data-price="129.00"
-                            data-img="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 3 -->
-                <div class="product-card reveal" data-category="backpack" id="product-3">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80"
-                            alt="Atlas Urban Backpack" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Backpack</span>
-                        <h3 class="product-name">Atlas Urban Backpack</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">(76)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$219.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="3" data-name="Atlas Urban Backpack"
-                            data-price="219.00"
-                            data-img="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 4 -->
-                <div class="product-card reveal" data-category="clutch" id="product-4">
-                    <div class="product-badge">New</div>
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&q=80"
-                            alt="Luxe Evening Clutch" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Clutch</span>
-                        <h3 class="product-name">Luxe Evening Clutch</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">(53)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$149.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="4" data-name="Luxe Evening Clutch" data-price="149.00"
-                            data-img="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 5 -->
-                <div class="product-card reveal" data-category="tote" id="product-5">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80"
-                            alt="Caramel Bucket Tote" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Tote</span>
-                        <h3 class="product-name">Caramel Bucket Tote</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="rating-count">(112)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$169.00</span>
-                            <span class="product-price-old">$210.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="5" data-name="Caramel Bucket Tote" data-price="169.00"
-                            data-img="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 6 -->
-                <div class="product-card reveal" data-category="crossbody" id="product-6">
-                    <div class="product-badge sale">Sale</div>
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80"
-                            alt="Midnight Mini Satchel" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Crossbody</span>
-                        <h3 class="product-name">Midnight Mini Satchel</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">(67)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$99.00</span>
-                            <span class="product-price-old">$149.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="6" data-name="Midnight Mini Satchel"
-                            data-price="99.00"
-                            data-img="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 7 -->
-                <div class="product-card reveal" data-category="backpack" id="product-7">
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400&q=80"
-                            alt="Voyager Leather Pack" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Backpack</span>
-                        <h3 class="product-name">Voyager Leather Pack</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="rating-count">(89)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$259.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="7" data-name="Voyager Leather Pack"
-                            data-price="259.00"
-                            data-img="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-                <!-- Product 8 -->
-                <div class="product-card reveal" data-category="clutch" id="product-8">
-                    <div class="product-badge">New</div>
-                    <button class="product-wishlist" aria-label="Add to wishlist">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                    </button>
-                    <div class="product-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1575032617751-6ddec2089882?w=400&q=80"
-                            alt="Rosé Satin Clutch" />
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Clutch</span>
-                        <h3 class="product-name">Rosé Satin Clutch</h3>
-                        <div class="product-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">(41)</span>
-                        </div>
-                        <div class="product-price-row">
-                            <span class="product-price">$119.00</span>
-                        </div>
-                        <button class="btn btn-add-cart" data-id="8" data-name="Rosé Satin Clutch" data-price="119.00"
-                            data-img="https://images.unsplash.com/photo-1575032617751-6ddec2089882?w=400&q=80">Add to
-                            Cart</button>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-stats">
+          <div class="stat"><h3>2K+</h3><p>Happy Customers</p></div>
+          <div class="stat"><h3>150+</h3><p>Heel Designs</p></div>
+          <div class="stat"><h3>4.9★</h3><p>Average Rating</p></div>
         </div>
-    </section>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=750&fit=crop" alt="Luxury red stiletto heels">
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== BANNER ========== -->
-    <section class="promo-banner reveal">
-        <div class="container promo-inner">
-            <div class="promo-content">
-                <span class="promo-tag">Limited Time Offer</span>
-                <h2 class="promo-title">Get 30% Off Your First Order</h2>
-                <p class="promo-text">Sign up today and receive an exclusive discount code for your first purchase.
-                    Premium bags, unbeatable price.</p>
-                <a href="#newsletter" class="btn btn-primary">Claim Your Discount</a>
-            </div>
-            <div class="promo-visual">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&q=80"
-                    alt="Limited time offer — premium bag" />
-            </div>
+  <!-- ═══ MARQUEE ═══ -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>✦ Stilettos</span><span>✦ Pumps</span><span>✦ Platforms</span>
+      <span>✦ Mules</span><span>✦ Ankle Straps</span><span>✦ Wedges</span>
+      <span>✦ Kitten Heels</span><span>✦ Block Heels</span>
+      <span>✦ Stilettos</span><span>✦ Pumps</span><span>✦ Platforms</span>
+      <span>✦ Mules</span><span>✦ Ankle Straps</span><span>✦ Wedges</span>
+      <span>✦ Kitten Heels</span><span>✦ Block Heels</span>
+    </div>
+  </div>
+
+  <!-- ═══ CATEGORIES ═══ -->
+  <section id="categories">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Browse By Style</span>
+        <h2>Shop Categories</h2>
+        <p>Find the perfect pair for every occasion and mood</p>
+      </div>
+      <div class="categories-grid">
+        <div class="category-card reveal">
+          <img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=500&h=600&fit=crop" alt="Stilettos">
+          <div class="category-overlay"><h3>Stilettos</h3><p>42 Styles</p></div>
         </div>
-    </section>
-
-    <!-- ========== FEATURES ========== -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <path
-                                d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.19M15 6h2a2 2 0 0 1 2 2v1M5 6h10M5 18h10m0 0h4a2 2 0 0 0 2-2v-4" />
-                            <circle cx="7.5" cy="15.5" r="2.5" />
-                            <circle cx="16.5" cy="15.5" r="2.5" />
-                        </svg>
-                    </div>
-                    <h3>Free Shipping</h3>
-                    <p>Complimentary shipping on all orders over $100</p>
-                </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        </svg>
-                    </div>
-                    <h3>Premium Quality</h3>
-                    <p>Handcrafted with genuine leather and top-tier materials</p>
-                </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
-                            <polyline points="16 12 12 8 8 12" />
-                            <line x1="12" y1="16" x2="12" y2="8" />
-                        </svg>
-                    </div>
-                    <h3>Easy Returns</h3>
-                    <p>30-day hassle-free return and exchange policy</p>
-                </div>
-                <div class="feature-card reveal">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                        </svg>
-                    </div>
-                    <h3>24/7 Support</h3>
-                    <p>Our team is always here to help, day and night</p>
-                </div>
-            </div>
+        <div class="category-card reveal">
+          <img src="https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=500&h=600&fit=crop" alt="Pumps">
+          <div class="category-overlay"><h3>Pumps</h3><p>38 Styles</p></div>
         </div>
-    </section>
-
-    <!-- ========== TESTIMONIALS ========== -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">What People Say</span>
-                <h2 class="section-title">Customer Reviews</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card reveal">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"The Sienna Tote is absolutely gorgeous. The leather is buttery soft and
-                        the craftsmanship is impeccable. Worth every penny!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">SC</div>
-                        <div>
-                            <strong>Sarah Chen</strong>
-                            <span>Verified Buyer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card reveal">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"I've been using the Atlas Backpack daily for 6 months and it still
-                        looks brand new. The quality is unmatched. Already ordered two more!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">MR</div>
-                        <div>
-                            <strong>Marcus Rivera</strong>
-                            <span>Verified Buyer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card reveal">
-                    <div class="testimonial-stars">★★★★☆</div>
-                    <p class="testimonial-text">"Fast shipping, beautiful packaging, and the clutch itself is stunning.
-                        I get compliments every time I carry it out. Highly recommend BagBuzz!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">AJ</div>
-                        <div>
-                            <strong>Aisha Johnson</strong>
-                            <span>Verified Buyer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="category-card reveal">
+          <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=500&h=600&fit=crop" alt="Mules">
+          <div class="category-overlay"><h3>Mules</h3><p>25 Styles</p></div>
         </div>
-    </section>
-
-    <!-- ========== NEWSLETTER ========== -->
-    <section class="newsletter" id="newsletter">
-        <div class="container">
-            <div class="newsletter-inner reveal">
-                <div class="newsletter-content">
-                    <span class="section-tag">Stay Connected</span>
-                    <h2 class="section-title">Join the BagBuzz Club</h2>
-                    <p class="section-subtitle">Get exclusive access to new arrivals, sales, and style tips — delivered
-                        straight to your inbox.</p>
-                </div>
-                <form class="newsletter-form" id="newsletterForm">
-                    <div class="form-group">
-                        <input type="email" id="emailInput" placeholder="Enter your email address" required />
-                        <button type="submit" class="btn btn-primary">Subscribe</button>
-                    </div>
-                    <p class="form-note">No spam, ever. Unsubscribe anytime.</p>
-                </form>
-            </div>
+        <div class="category-card reveal">
+          <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&h=600&fit=crop" alt="Platforms">
+          <div class="category-overlay"><h3>Platforms</h3><p>31 Styles</p></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== FOOTER ========== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col footer-brand">
-                    <a href="#" class="logo">
-                        <span class="logo-icon">👜</span>
-                        <span class="logo-text">Bag<span class="logo-accent">Buzz</span></span>
-                    </a>
-                    <p class="footer-desc">Curating premium designer bags since 2011. Quality craftsmanship meets modern
-                        elegance.</p>
-                    <div class="footer-socials">
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Facebook">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Pinterest">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M8 12a4 4 0 1 1 8 0c0 4-3 6-3 6" />
-                                <line x1="12" y1="12" x2="12" y2="21" />
-                                <circle cx="12" cy="12" r="10" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Shop</h4>
-                    <ul>
-                        <li><a href="#">Tote Bags</a></li>
-                        <li><a href="#">Crossbody</a></li>
-                        <li><a href="#">Backpacks</a></li>
-                        <li><a href="#">Clutches</a></li>
-                        <li><a href="#">Travel Bags</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Sustainability</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Help</h4>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 BagBuzz. All rights reserved.</p>
-                <div class="footer-payments">
-                    <span>Visa</span>
-                    <span>Mastercard</span>
-                    <span>PayPal</span>
-                    <span>Apple Pay</span>
-                </div>
-            </div>
+  <!-- ═══ PRODUCTS ═══ -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Curated For You</span>
+        <h2>Trending Now</h2>
+        <p>Our most loved designs, handpicked by our stylists</p>
+      </div>
+      <div class="filter-tabs reveal">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="stilettos">Stilettos</button>
+        <button class="filter-tab" data-filter="pumps">Pumps</button>
+        <button class="filter-tab" data-filter="mules">Mules</button>
+        <button class="filter-tab" data-filter="platforms">Platforms</button>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURED BANNER ═══ -->
+  <section id="featured">
+    <div class="container">
+      <div class="featured-banner reveal">
+        <div class="banner-inner">
+          <div class="banner-text">
+            <span class="label">Limited Edition</span>
+            <h2>The Crystal Collection</h2>
+            <p>Hand-embellished Swarovski crystals on Italian leather. Only 200 pairs available worldwide. Don't miss your chance to own a piece of art.</p>
+            <a href="#products" class="btn btn-primary">Shop Collection →</a>
+          </div>
+          <div class="banner-image">
+            <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=700&h=500&fit=crop" alt="Crystal Collection">
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== CART DRAWER ========== -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <aside class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">What They Say</span>
+        <h2>Client Love</h2>
+      </div>
+      <div class="testimonial-slider reveal">
+        <div class="testimonial-track">
+          <div class="testimonial-card">
+            <div class="quote">"SlayStep heels are the most comfortable luxury heels I've ever worn. I danced all night at my gala and my feet felt amazing. Absolute perfection!"</div>
+            <div class="author-name">Sophia Carter</div>
+            <div class="author-title">Fashion Influencer</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="quote">"The craftsmanship is unreal. Every detail, from the stitching to the sole, screams luxury. My Golden Hour Pumps get compliments everywhere I go."</div>
+            <div class="author-name">Aria Mitchell</div>
+            <div class="author-title">Stylist &amp; Designer</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="quote">"I've tried every luxury heel brand and nothing compares to SlayStep's quality-to-price ratio. These are investment pieces you'll treasure for years."</div>
+            <div class="author-name">Elena Rodriguez</div>
+            <div class="author-title">Beauty Editor</div>
+          </div>
         </div>
-        <div class="cart-items" id="cartItems">
-            <div class="cart-empty" id="cartEmpty">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                    opacity="0.4">
-                    <circle cx="8" cy="21" r="1" />
-                    <circle cx="19" cy="21" r="1" />
-                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-                </svg>
-                <p>Your cart is empty</p>
-                <span>Browse our collection and add some bags!</span>
-            </div>
+        <div class="slider-dots">
+          <button class="active"></button><button></button><button></button>
         </div>
-        <div class="cart-footer" id="cartFooter" style="display:none;">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            <button class="btn btn-primary btn-checkout">Checkout</button>
-            <p class="cart-note">Shipping & taxes calculated at checkout</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NEWSLETTER ═══ -->
+  <section class="newsletter">
+    <div class="container reveal">
+      <h2>Join the SlayStep Club</h2>
+      <p>Get early access to new drops, exclusive offers, and style inspiration.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Enter your email address" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">SLAYSTEP</a>
+          <p>Luxury heels handcrafted with passion. Designed for women who walk with confidence and style.</p>
         </div>
-    </aside>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+            <li><a href="#">Stilettos</a></li>
+            <li><a href="#">Pumps</a></li>
+            <li><a href="#">Platforms</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SlayStep. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" title="Instagram">📷</a>
+          <a href="#" title="Twitter">🐦</a>
+          <a href="#" title="Pinterest">📌</a>
+          <a href="#" title="TikTok">🎵</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-    <!-- ========== TOAST ========== -->
-    <div class="toast-container" id="toastContainer"></div>
+  <!-- ═══ CART SIDEBAR ═══ -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Your Bag</h3>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty"><div class="empty-icon">👠</div><p>Your bag is empty</p></div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total</span><span id="cartTotal">$0</span></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center">Checkout →</button>
+    </div>
+  </div>
 
-    <!-- ========== BACK TO TOP ========== -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="18 15 12 9 6 15" />
-        </svg>
-    </button>
+  <!-- ═══ BACK TO TOP ═══ -->
+  <button class="back-to-top" title="Back to top">↑</button>
 
-    <script src="script.js"></script>
+  <!-- ═══ CHATBASE CHATBOT ═══ -->
+  <script>
+    window.embeddedChatbotConfig = {
+      chatbotId: "MlHbfIH93dIdCaS8vDhrW",
+      domain: "www.chatbase.co"
+    };
+  </script>
+  <script src="https://www.chatbase.co/embed.min.js" chatbotId="MlHbfIH93dIdCaS8vDhrW" domain="www.chatbase.co" defer></script>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
